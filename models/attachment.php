@@ -36,7 +36,6 @@ class JSON_API_Attachment {
   }
   
   function query_images() {
-    $sizes = array('thumbnail', 'medium', 'large', 'full');
     if (function_exists('get_intermediate_image_sizes')) {
       $sizes = array_merge(array('full'), get_intermediate_image_sizes());
     }
@@ -49,6 +48,11 @@ class JSON_API_Attachment {
         list($measured_width, $measured_height) = getimagesize($filename);
         if ($measured_width == $width &&
             $measured_height == $height) {
+          for ( $i = 0; $i < strlen($size); $i++ ) {
+            if ( $size[$i] === '-' ) {
+              $size[$i] = '_';
+            }
+          }
           $this->images[$size] = (object) array(
             'url' => $url,
             'width' => $width,
