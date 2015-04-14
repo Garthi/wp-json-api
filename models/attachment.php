@@ -36,6 +36,7 @@ class JSON_API_Attachment {
   }
   
   function query_images() {
+    $sizes = array('thumbnail', 'medium', 'large', 'full');
     if (function_exists('get_intermediate_image_sizes')) {
       $sizes = array_merge(array('full'), get_intermediate_image_sizes());
     }
