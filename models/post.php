@@ -128,11 +128,13 @@ class JSON_API_Post {
   function import_wp_object($wp_post) {
     global $json_api, $post;
     $date_format = $json_api->query->date_format;
+    $relative_url = parse_url( get_permalink( get_the_ID() ) );
     $this->id = (int) $wp_post->ID;
     setup_postdata($wp_post);
     $this->set_value('type', $wp_post->post_type);
     $this->set_value('slug', $wp_post->post_name);
     $this->set_value('url', get_permalink($this->id));
+    $this->set_value('relative_url', $relative_url['path']);
     $this->set_value('status', $wp_post->post_status);
     $this->set_value('title', get_the_title($this->id));
     $this->set_value('title_plain', strip_tags(@$this->title));
