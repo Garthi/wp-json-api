@@ -1,10 +1,11 @@
 <?php
+use \DateTime;
 
 class JSON_API_Query {
   
   // Default values
   protected $defaults = array(
-    'date_format' => 'Y-m-d H:i:s',
+    'date_format' => Datetime::ISO8601,
     'read_more' => 'Read more'
   );
   
