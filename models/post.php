@@ -272,12 +272,17 @@ class JSON_API_Post {
         $keys = explode(',', $json_api->query->custom_fields);
       }
       foreach ($wp_custom_fields as $key => $value) {
+        if ( sizeof( $wp_custom_fields[$key] ) > 1 ) {
+          $field = $wp_custom_fields[$key];
+        } else {
+          $field = $wp_custom_fields[$key][0];
+        }
         if ($json_api->query->custom_fields) {
           if (in_array($key, $keys)) {
-            $this->custom_fields->$key = $wp_custom_fields[$key];
+            $this->custom_fields->$key = maybe_unserialize( $field );
           }
         } else if (substr($key, 0, 1) != '_') {
-          $this->custom_fields->$key = $wp_custom_fields[$key];
+          $this->custom_fields->$key = maybe_unserialize( $field );
         }
       }
     } else {

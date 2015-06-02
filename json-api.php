@@ -3,7 +3,7 @@
 Plugin Name: WordPress JSON API
 Plugin URI: https://github.com/cfpb/wp-json-api
 Description: A RESTful API for WordPress
-Version: 1.1.4
+Version: 1.1.5
 Author: Dan Phiffer, Greg Boone
 */
 
