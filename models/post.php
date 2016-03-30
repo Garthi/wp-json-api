@@ -6,6 +6,7 @@ class JSON_API_Post {
   //   JSON_API_Post objects must be instantiated within The Loop.
   
   var $id;              // Integer
+  var $guid;            // String
   var $type;            // String
   var $slug;            // String
   var $url;             // String
@@ -130,6 +131,7 @@ class JSON_API_Post {
     $date_format = $json_api->query->date_format;
     $relative_url = parse_url( get_permalink( get_the_ID() ) );
     $this->id = (int) $wp_post->ID;
+    $this->guid = $wp_post->guid;
     setup_postdata($wp_post);
     $this->set_value('type', $wp_post->post_type);
     $this->set_value('slug', $wp_post->post_name);
