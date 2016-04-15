@@ -140,7 +140,7 @@ class JSON_API_Post {
     $this->set_value('status', $wp_post->post_status);
     $this->set_value('title', get_the_title($this->id));
     $this->set_value('title_plain', strip_tags(@$this->title));
-    $this->set_content_value();
+    $this->set_content_value($post);
     $this->set_value('dek', $post->post_excerpt);
     $this->set_value('excerpt', apply_filters('the_excerpt', get_the_excerpt()));
     $this->set_value('order', $wp_post->menu_order);
@@ -169,10 +169,10 @@ class JSON_API_Post {
     }
   }
     
-  function set_content_value() {
+  function set_content_value($post) {
     global $json_api;
     if ($json_api->include_value('content')) {
-      $content = get_the_content($json_api->query->read_more);
+      $content = str_replace( '<!--more-->', '', $post->post_content );
       $content = apply_filters('the_content', $content);
       $content = str_replace(']]>', ']]&gt;', $content);
       $this->content = $content;
