@@ -23,12 +23,11 @@ class JSON_API_Comment {
     $content = apply_filters('comment_text', $wp_comment->comment_content);
     
     $this->id = (int) $wp_comment->comment_ID;
-    $this->name = $wp_comment->comment_author;
-    $this->url = $wp_comment->comment_author_url;
+    $this->name = iconv(mb_detect_encoding($wp_comment->comment_author, mb_detect_order(), true), "UTF-8", $wp_comment->comment_author);
+    $this->url = iconv(mb_detect_encoding($wp_comment->comment_author_url, mb_detect_order(), true), "UTF-8", $wp_comment->comment_author_url);
     $this->date = date($date_format, strtotime($wp_comment->comment_date));
-    $this->content = $content;
+    $this->content = iconv(mb_detect_encoding($content, mb_detect_order(), true), "UTF-8", $content);
     $this->parent = (int) $wp_comment->comment_parent;
-    //$this->raw = $wp_comment;
     
     if (!empty($wp_comment->user_id)) {
       $this->author = new JSON_API_Author($wp_comment->user_id);
